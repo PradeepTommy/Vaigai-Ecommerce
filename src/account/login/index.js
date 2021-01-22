@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, Picker,AsyncStorage } from "react-native";
-import { Container, Header, Left, Body, Right, Title, Label, Item, Input, Button, Content, Card, CardItem  } from 'native-base';
-import { Col, Row, Grid } from 'react-native-easy-grid';
+import { View, Text, Image, TouchableOpacity, StatusBar, Picker, AsyncStorage } from "react-native";
+import { Container, Header, Left, Body, Right, Title, Label, Item,
+   Input, Button, Content, Card, CardItem  } from 'native-base';
 
 import Icon from '../../../assets/logo.jpg';
 import Languages from '../../language';
@@ -20,8 +20,8 @@ export default class Login extends Component {
 
   storeData = async () => {
   try {
-    await AsyncStorage.setItem("login", JSON.stringify(this.state.language),
-    () => this.props.navigation.navigate("Home", {id: this.state.language}));
+    await AsyncStorage.setItem("login",this.state.language);
+    this.props.navigation.navigate("Home");
   } catch (error) {
     // Error saving data
   }
@@ -31,8 +31,9 @@ export default class Login extends Component {
     return(
       <Container>
         <Header style={{backgroundColor: '#1E8449'}}>
+          <StatusBar backgroundColor='#1E8449' barStyle='light-content' />
           <Body>
-            <Title style={{ fontSize: 18, marginLeft: '3%' }}>AGRIIST</Title>
+            <Title style={{ fontSize: 18, marginLeft: '3%' }}>AGRIST</Title>
           </Body>
         </Header>
         <View>

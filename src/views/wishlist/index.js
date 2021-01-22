@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList, ScrollView, AsyncStorage, TouchableWithoutFeedback} from 'react-native';
+import { View, Text, Image, TouchableOpacity, FlatList, ScrollView, AsyncStorage, StatusBar,
+  Dimensions, TouchableWithoutFeedback} from 'react-native';
 import { Container, Header, Title, Body, Left, Right, Button, Card, CardItem, Icon,
    Content, List, ListItem, Thumbnail } from 'native-base';
 import { Grid, Col, Row } from 'react-native-easy-grid';
@@ -34,6 +35,8 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
        },
      ];
 
+
+
 export default class Wishlist extends Component {
 
   constructor () {
@@ -48,10 +51,10 @@ export default class Wishlist extends Component {
     <Card style={styles.cardContainerStyle}>
       <Grid>
         <Col style={{width: '40%'}}>
-          <Image source={{uri: item.src}} style={{width: '60%', height: "70%", marginLeft: '5%',
-             justifyContent: 'center', marginTop: 'auto', marginBottom: 'auto'}} />
+          <Image source={{uri: item.src}} style={{width: '80%', height: "100%", marginLeft: '10%',
+             justifyContent: 'center', }} />
         </Col>
-        <Col style={{width: '50%',}}>
+        <Col style={{width: '50%'}}>
           <Text style={{fontWeight: 'bold', fontSize: 16, marginTop: '10%'}}>{item.title}</Text>
           <Text style={{fontSize: 15, color: '#CACFD2' }}>₹{item.cost}</Text>
           <Text style={{fontSize: 14, color: '#CACFD2' }}>(This is just a transparent card )</Text>
@@ -64,6 +67,7 @@ export default class Wishlist extends Component {
     return(
       <Container>
         <Header style={{backgroundColor: '#1E8449'}}>
+          <StatusBar backgroundColor='#1E8449' barStyle='light-content' />
           <Left>
             <Button transparent onPress={() => this.props.navigation.goBack()}>
               <Icon name="arrow-back" />
@@ -90,12 +94,9 @@ export default class Wishlist extends Component {
 
 const styles = {
   cardContainerStyle: {
-     borderRadius: 8,  marginLeft: "auto", marginRight: 'auto', height: 130, width: "90%", marginTop:'3%',
-  },
-  col: {
-    height: 50,
+      height: Dimensions.get('window').height/7, width: "100%", marginTop:'2%',
   },
   button: {
     marginLeft: '75%', backgroundColor: '#3498DB', marginTop: '3%', borderRadius: 3, height: 30, width: '20%',
-  }
+  },
 };

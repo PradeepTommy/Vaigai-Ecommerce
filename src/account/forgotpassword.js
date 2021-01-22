@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Picker } from 'react-native';
+import { View, Text, Image, StatusBar, Picker } from 'react-native';
 import { Container, Header, Left, Body, Right, Title, Label, Icon, Item, Input, Button, Card, CardItem } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
@@ -17,6 +17,7 @@ export default class ForgotPassword extends Component {
     return(
       <Container>
         <Header style={{backgroundColor: '#1E8449'}}>
+          <StatusBar backgroundColor='#1E8449' barStyle='light-content' />
           <Left>
             <Button transparent onPress={() => this.props.navigation.goBack()}>
               <Icon name="arrow-back" />
