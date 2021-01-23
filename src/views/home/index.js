@@ -18,11 +18,13 @@ import {
 	Button,
 	Card,
 	Icon,
-	Content, Spinner
+	Content,
+	Spinner,
 } from "native-base";
 import Swiper from "react-native-web-swiper";
 import { Col, Grid } from "react-native-easy-grid";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
+
 
 import Languages from "../../language";
 import Server from "../../function/server";
@@ -32,7 +34,7 @@ import Second from "../../../assets/76.jpg";
 import Third from "../../../assets/78.jpg";
 
 export default class Home extends Component {
-	state = {};
+	state = { loading: true };
 
 	async componentDidMount() {
 		const language = await AsyncStorage.getItem("login");
@@ -52,7 +54,7 @@ export default class Home extends Component {
 
 	getHomeItems = () => {
 		let url = Server() + "gethomeitems.php";
-		this.setState({load: true});
+		this.setState({ load: true });
 		fetch(url, {
 			method: "GET",
 			headers: {
@@ -60,7 +62,8 @@ export default class Home extends Component {
 				"Content-Type": "multipart/form-data",
 			},
 		})
-			.then((response) => {
+			.then((response) => {   
+				
 				return response.json();
 			})
 			.then((response) => {
@@ -177,9 +180,12 @@ export default class Home extends Component {
 											style={styles.button}
 											iconRight
 											onPress={() =>
-												this.props.navigation.navigate("ViewAll", {
-													header: "Category",
-													result: this.state.data["Category"],
+												this.props.navigation.navigate("Stacks", {
+													screen: "ViewAll",
+													params: {
+														header: "Category",
+														result: this.state.data["Category"],
+													},
 												})
 											}>
 											<Text
@@ -202,18 +208,24 @@ export default class Home extends Component {
 								</View>
 							</Col>
 						</Grid>
-						{ this.state.data ? 
+						{this.state.data ? (
 							<FlatList
 								horizontal
 								showsHorizontalScrollIndicator={false}
 								data={this.state.data ? this.state.data["Category"] : []}
 								renderItem={this.renderCarousel}
-							/>:
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-							<Spinner color="green" size={40}/>
-							<Text>Loading</Text>
+							/>
+						) : (
+							<View
+								style={{
+									flex: 1,
+									justifyContent: "center",
+									alignItems: "center",
+								}}>
+								<Spinner color="green" size={40} />
+								<Text>Loading</Text>
 							</View>
-	                    }
+						)}
 					</View>
 
 					<View style={{ marginTop: "1%" }}>
@@ -239,9 +251,12 @@ export default class Home extends Component {
 											style={styles.button}
 											iconRight
 											onPress={() =>
-												this.props.navigation.navigate("ViewAll", {
-													header: "Set",
-													result: this.state.data["Set"],
+												this.props.navigation.navigate("Stacks", {
+													screen: "ViewAll",
+													params: {
+														header: "Set",
+														result: this.state.data["Set"],
+													},
 												})
 											}>
 											<Text
@@ -264,18 +279,24 @@ export default class Home extends Component {
 								</View>
 							</Col>
 						</Grid>
-						{ this.state.data ?
+						{this.state.data ? (
 							<FlatList
 								horizontal
 								showsHorizontalScrollIndicator={false}
 								data={this.state.data ? this.state.data["Set"] : []}
 								renderItem={this.renderCarousel}
-							/>: 
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-							<Spinner color="green" size={40}/>
-							<Text>Loading</Text>
+							/>
+						) : (
+							<View
+								style={{
+									flex: 1,
+									justifyContent: "center",
+									alignItems: "center",
+								}}>
+								<Spinner color="green" size={40} />
+								<Text>Loading</Text>
 							</View>
-						}
+						)}
 					</View>
 
 					<View style={{ marginTop: "1%" }}>
@@ -301,9 +322,12 @@ export default class Home extends Component {
 											style={styles.button}
 											iconRight
 											onPress={() =>
-												this.props.navigation.navigate("ViewAll", {
-													header: "Combo",
-													result: this.state.data["Combo"],
+												this.props.navigation.navigate("Stacks", {
+													screen: "ViewAll",
+													params: {
+														header: "Combo",
+														result: this.state.data["Combo"],
+													},
 												})
 											}>
 											<Text
@@ -326,18 +350,24 @@ export default class Home extends Component {
 								</View>
 							</Col>
 						</Grid>
-						{ this.state.data ?
+						{this.state.data ? (
 							<FlatList
 								horizontal
 								showsHorizontalScrollIndicator={false}
 								data={this.state.data ? this.state.data["Combo"] : []}
 								renderItem={this.renderCarousel}
-							/>:
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-							<Spinner color="green" size={40}/>
-							<Text>Loading</Text>
+							/>
+						) : (
+							<View
+								style={{
+									flex: 1,
+									justifyContent: "center",
+									alignItems: "center",
+								}}>
+								<Spinner color="green" size={40} />
+								<Text>Loading</Text>
 							</View>
-						}
+						)}
 					</View>
 
 					<View style={{ marginTop: "1%" }}>
@@ -363,9 +393,12 @@ export default class Home extends Component {
 											style={styles.button}
 											iconRight
 											onPress={() =>
-												this.props.navigation.navigate("ViewAll", {
-													header: "Section",
-													result: this.state.data["Section"],
+												this.props.navigation.navigate("Stacks", {
+													screen: "ViewAll",
+													params: {
+														header: "Section",
+														result: this.state.data["Section"],
+													},
 												})
 											}>
 											<Text
@@ -388,18 +421,24 @@ export default class Home extends Component {
 								</View>
 							</Col>
 						</Grid>
-						{ this.state.data ?
+						{this.state.data ? (
 							<FlatList
 								horizontal
 								showsHorizontalScrollIndicator={false}
 								data={this.state.data ? this.state.data["Section"] : []}
 								renderItem={this.renderCarousel}
-							/>:
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-							<Spinner color="green" size={40}/>
-							<Text>Loading</Text>
+							/>
+						) : (
+							<View
+								style={{
+									flex: 1,
+									justifyContent: "center",
+									alignItems: "center",
+								}}>
+								<Spinner color="green" size={40} />
+								<Text>Loading</Text>
 							</View>
-						}
+						)}
 					</View>
 
 					<View style={{ marginTop: "1%" }}>
@@ -425,9 +464,12 @@ export default class Home extends Component {
 											style={styles.button}
 											iconRight
 											onPress={() =>
-												this.props.navigation.navigate("ViewAll", {
-													header: "Model",
-													result: this.state.data["Model"],
+												this.props.navigation.navigate("Stacks", {
+													screen: "ViewAll",
+													params: {
+														header: "Model",
+														result: this.state.data["Model"],
+													},
 												})
 											}>
 											<Text
@@ -450,18 +492,24 @@ export default class Home extends Component {
 								</View>
 							</Col>
 						</Grid>
-						{ this.state.data ? 
+						{this.state.data ? (
 							<FlatList
 								horizontal
 								showsHorizontalScrollIndicator={false}
 								data={this.state.data ? this.state.data["Model"] : []}
 								renderItem={this.renderCarousel}
-							/>:
-							<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-							<Spinner color="green" size={40}/>
-							<Text>Loading</Text>
+							/>
+						) : (
+							<View
+								style={{
+									flex: 1,
+									justifyContent: "center",
+									alignItems: "center",
+								}}>
+								<Spinner color="green" size={40} />
+								<Text>Loading</Text>
 							</View>
-						}			
+						)}
 					</View>
 				</Content>
 			</Container>

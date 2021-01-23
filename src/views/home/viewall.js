@@ -24,12 +24,18 @@ import { Col, Grid } from "react-native-easy-grid";
 import RBSheet from "react-native-raw-bottom-sheet";
 
 export default class ViewAll extends Component {
+
 	state = {};
 
 	renderCarousel = ({ item }) => (
 		<Card style={styles.cardContainerStyle}>
 			<TouchableOpacity
-				onPress={() => this.props.navigation.navigate("ProductDetails", {id: item.id})}>
+				onPress={() => this.props.navigation.navigate("Stacks", {
+					screen: "ProductDetails",
+					params: {
+						id: item.id,
+					},
+				} )}>
 				<Image
 					source={{
 						uri: `https://s3.ap-south-1.amazonaws.com/vaigaiclaas.com/${item.type.toLowerCase()}/${item.id}.jpg`,
@@ -67,22 +73,10 @@ export default class ViewAll extends Component {
 	);
 
 	render() {
+		const {result} = this.props.route.params;
+		console.log(this.props) 
 		return (
 			<Container>
-				<Header style={{ backgroundColor: "#1E8449" }}>
-					<StatusBar backgroundColor="#1E8449" barStyle="light-content" />
-					<Left>
-						<Button transparent onPress={() => this.props.navigation.goBack()}>
-							<Icon name="arrow-back" />
-						</Button>
-					</Left>
-					<Body>
-						<Title style={{ fontSize: 18, marginLeft: "3%" }}>
-							{this.props.navigation.state.params.header}
-						</Title>
-					</Body>
-					<Right />
-				</Header>
 				<Content>
           
 					<FlatList
@@ -90,8 +84,8 @@ export default class ViewAll extends Component {
 						numColumns={2}
 						showsHorizontalScrollIndicator={false}
 						data={
-							this.props.navigation.state.params.result
-								? this.props.navigation.state.params.result
+							result
+								? result
 								: []
 						}
 						renderItem={this.renderCarousel}

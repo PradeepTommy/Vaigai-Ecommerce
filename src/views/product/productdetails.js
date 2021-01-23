@@ -6,7 +6,8 @@ import {
 	TouchableOpacity,
 	FlatList,
 	Dimensions,
-	StatusBar,
+  StatusBar,
+  Alert
 } from "react-native";
 import {
 	Container,
@@ -73,7 +74,7 @@ export default class ProductDetails extends Component {
 
   
   componentDidMount() {
-    alert(this.props.navigation.state.params.id)
+    const id = this.props.route.params;
   }
 	renderCarousel = ({ item }) => (
 		<Card style={styles.cardContainerStyle}>
@@ -102,30 +103,9 @@ export default class ProductDetails extends Component {
 	);
 
 	render() {
+    
 		return (
 			<Container>
-				<Header style={{ backgroundColor: "#1E8449" }}>
-					<StatusBar backgroundColor="#1E8449" barStyle="light-content" />
-					<Left>
-						<Button transparent onPress={() => this.props.navigation.goBack()}>
-							<Icon name="arrow-back" />
-						</Button>
-					</Left>
-					<Body>
-						<Title style={{ fontSize: 18, marginLeft: "1%" }}>
-							Product Details
-						</Title>
-					</Body>
-					<Right>
-						<TouchableOpacity
-							onPress={() => this.props.navigation.navigate("Wishlist")}>
-							<Icon
-								name="heart"
-								style={{ color: "white", marginRight: "10%" }}
-							/>
-						</TouchableOpacity>
-					</Right>
-				</Header>
 
 				<Content>
 					<View style={{ marginTop: "1%" }}>
@@ -322,7 +302,11 @@ export default class ProductDetails extends Component {
 								borderTopColor: "#f4f4f4",
 								borderTopWidth: 1,
 							}}
-							onPress={() => this.props.navigation.navigate("Cart")}>
+							onPress={() =>
+								this.props.navigation.navigate("Stacks", {
+									screen: "Cart",
+								})
+							}>
 							<Text style={{ fontWeight: "bold", fontSize: 15 }}>
 								Go To Cart
 							</Text>

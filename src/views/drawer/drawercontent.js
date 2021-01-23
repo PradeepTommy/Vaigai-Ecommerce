@@ -1,15 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import {
-	DrawerContentScrollView,
-} from "@react-navigation/drawer";
-import {
-	Avatar,
-	Title,
-	Caption,
-	Paragraph,
-	Drawer,
-} from "react-native-paper";
+import { DrawerContentScrollView } from "@react-navigation/drawer";
+import { Avatar, Title, Caption, Paragraph, Drawer } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
 import User from "../../../assets/user.png";
@@ -68,31 +60,44 @@ export function DrawerContent(props) {
 								<Ionicons name="home-outline" color={color} size={size} />
 							)}
 							label="Home"
-							onPress={() => {
-								props.navigation.closeDrawer();
-								console.log(props.navigation);
-								// props.navigation.navigate('Home')
-							}}
+							onPress= {() =>
+								props.navigation.navigate("Stacks", {
+									screen: "Home",
+								})
+							}
 						/>
 						<Drawer.Item
 							icon={({ color, size }) => (
 								<Ionicons name="heart-outline" color={color} size={size} />
 							)}
 							label="WishList"
-							onPress={() => props.navigation.navigate("Wishlist")}
+							onPress= {() =>
+								props.navigation.navigate("Stacks", {
+									screen: "Wishlist",
+								})
+							}
 						/>
 						<Drawer.Item
 							icon={({ color, size }) => (
 								<Ionicons name="cart-outline" color={color} size={size} />
 							)}
 							label="Cart"
+							onPress= {() =>
+								props.navigation.navigate("Stacks", {
+									screen: "Cart",
+								})
+							}
 						/>
 						<Drawer.Item
 							icon={({ color, size }) => (
 								<Ionicons name="push-outline" color={color} size={size} />
 							)}
 							label="Your Order"
-							onPress={() => props.navigation.navigate("Order")}
+							onPress= {() =>
+								props.navigation.navigate("Stacks", {
+									screen: "Order",
+								})
+							}
 						/>
 						<Drawer.Item
 							icon={({ color, size }) => (

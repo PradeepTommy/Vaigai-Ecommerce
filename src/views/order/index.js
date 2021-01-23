@@ -76,11 +76,6 @@ export default class Order extends Component {
               </CardItem>
             </Card>
           </View>
-          <Button style={{display: 'none'}} onPress={ () => this.props.navigation.navigate("Views")}>
-            <Text>
-              jsjsj
-            </Text>
-          </Button>
         </Content>
       </Container>
     )
