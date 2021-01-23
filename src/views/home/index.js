@@ -6,7 +6,7 @@ import {
 	StatusBar,
 	FlatList,
 	AsyncStorage,
-	Dimensions,
+	Dimensions, ActivityIndicator 
 } from "react-native";
 import {
 	Container,
@@ -63,7 +63,6 @@ export default class Home extends Component {
 			},
 		})
 			.then((response) => {   
-				
 				return response.json();
 			})
 			.then((response) => {

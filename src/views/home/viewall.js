@@ -74,7 +74,6 @@ export default class ViewAll extends Component {
 
 	render() {
 		const {result} = this.props.route.params;
-		console.log(this.props) 
 		return (
 			<Container>
 				<Content>

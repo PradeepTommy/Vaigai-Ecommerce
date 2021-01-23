@@ -1,8 +1,9 @@
-import * as React from "react";
+import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Button, Icon } from "native-base";
+import { Ionicons } from '@expo/vector-icons';
 
 import Login from "./src/account/login";
 import Signup from "./src/account/signup";
@@ -17,6 +18,8 @@ import { DrawerContent } from "./src/views/drawer/drawercontent";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+
+
 
 function Stacks({ navigation }) {
 	return (
@@ -48,21 +51,14 @@ function Stacks({ navigation }) {
 				name="ViewAll"
 				component={ViewAll}
 				options={
-					(({ route }) => ({ title: route.params.header }),
-					{
-						headerLeft: () => (
-							<Button transparent onPress={() => navigation.goBack()}>
-								<Icon style={{ color: "white" }} name="arrow-back" />
-							</Button>
-						),
-					})
+					({ route }) => ({ title: route.params.header })
 				}
 			/>
 			<Stack.Screen
 				name="ProductDetails"
 				component={ProductDetails}
 				options={
-					(({ route }) => ({ title: route.params.header }),
+					(
 					{
 						headerLeft: () => (
 							<Button transparent onPress={() => navigation.goBack()}>
