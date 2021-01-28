@@ -27,6 +27,9 @@ export default class ViewAll extends Component {
 
 	state = {};
 
+	componentDidMount() {
+	}
+
 	renderCarousel = ({ item }) => (
 		<Card style={styles.cardContainerStyle}>
 			<TouchableOpacity

@@ -15,16 +15,15 @@ import Wishlist from "./src/views/wishlist";
 import Cart from "./src/views/cart";
 import Order from "./src/views/order";
 import { DrawerContent } from "./src/views/drawer/drawercontent";
+import SplashScreen from "./src/views/splashscreen";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-
-
 function Stacks({ navigation }) {
 	return (
 		<Stack.Navigator
-			initialRouteName="Login"
+			initialRouteName="SplashScreen"
 			screenOptions={{
 				headerStyle: {
 					backgroundColor: "#1E8449",
@@ -33,9 +32,18 @@ function Stacks({ navigation }) {
 				headerTitleStyle: {},
 			}}>
 			<Stack.Screen
+				name="SplashScreen"
+				component={SplashScreen}
+				options={{ headerShown: false, }}
+			/>
+			<Stack.Screen
 				name="Login"
 				component={Login}
-				options={{ headerShown: false }}
+				options={{ headerShown: false, gestureEnabled: false,
+					
+					drawerLockMode: 'locked-closed'
+		
+				}}
 			/>
 			<Stack.Screen
 				name="Signup"

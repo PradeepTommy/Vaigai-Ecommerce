@@ -3,11 +3,10 @@ import {
 	View,
 	Text,
 	Image,
-	TouchableOpacity,
 	FlatList,
 	Dimensions,
-  StatusBar,
-  Alert
+	StatusBar,
+	Alert,
 } from "react-native";
 import {
 	Container,
@@ -64,18 +63,16 @@ const eventslist = [
 ];
 
 export default class ProductDetails extends Component {
-	constructor() {
-		super();
-		this.state = {
-			selectedIndex: 2,
-		};
+
+
+	componentDidMount() {
+		this.submit();
 	}
 
+	submit() {
+		const { id } =this.props.route.params;
+	  }
 
-  
-  componentDidMount() {
-    const id = this.props.route.params;
-  }
 	renderCarousel = ({ item }) => (
 		<Card style={styles.cardContainerStyle}>
 			<Image
@@ -103,10 +100,8 @@ export default class ProductDetails extends Component {
 	);
 
 	render() {
-    
 		return (
 			<Container>
-
 				<Content>
 					<View style={{ marginTop: "1%" }}>
 						<Card
