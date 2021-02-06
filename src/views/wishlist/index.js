@@ -14,76 +14,80 @@ import {
 	Body,
 	Left,
 	Right,
+	Icon,
 	Button,
 	Card,
-	Icon,
 	Content,
 } from "native-base";
 import { Grid, Col } from "react-native-easy-grid";
-
-const eventslist = [
-	{
-		src:
-			"https://image.freepik.com/free-photo/fried-eggs-drinks-breakfast_23-2147758279.jpg",
-		title: "Hydralic Pump",
-		cost: "1500",
-	},
-	{
-		src:
-			"https://image.freepik.com/free-photo/indian-masala-egg-omelet_136595-191.jpg",
-		title: "Hygralic generator",
-		cost: "100",
-	},
-];
-
-const events = [
-	{
-		src:
-			"https://image.freepik.com/free-photo/fried-eggs-drinks-breakfast_23-2147758279.jpg",
-		title: "Pvc Pump ",
-		cost: "100",
-	},
-	{
-		src:
-			"https://image.freepik.com/free-photo/indian-masala-egg-omelet_136595-191.jpg",
-		title: "generator",
-		cost: "100",
-	},
-];
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from "@expo/vector-icons";
 
 export default class Wishlist extends Component {
-	constructor() {
-		super();
-		this.state = {
-			selectedIndex: 2,
-		};
+	state = {};
+
+	async componentDidMount() {
+		const data = await AsyncStorage.getItem("whislist");
+		this.setState({ datas: JSON.parse(data) });
+		console.warn("hv", data);
 	}
 
-	keyExtractor = (item, index) => index.toString();
+	removePeople = async ({ id }) => {
+		console.warn(id);
+		var data = [...this.state.datas];
+		console.warn(data);
+		const arr = data.filter((item) => item.id !== id);
+		console.warn(arr);
+		await AsyncStorage.setItem("whislist", JSON.stringify(arr));
+		this.setState({ datas: arr });
+	};
+
 	renderCarousel = ({ item }) => (
 		<Card style={styles.cardContainerStyle}>
-			<Grid>
-				<Col style={{ width: "40%" }}>
-					<Image
-						source={{ uri: item.src }}
+			<Image
+				source={{ uri: item.uri }}
+				style={{
+					width: "100%",
+					height: "70%",
+					justifyContent: "center",
+				}}
+			/>
+			<View style={styles.container}>
+				<Ionicons
+					name="close"
+					size={15}
+					style={{ color: "#7B7D7D" }}
+					onPress={() => {
+						this.removePeople({ id: item.id });
+					}}
+				/>
+			</View>
+			<View style={styles.offer}>
+				<Text style={{ fontSize: 8, color: "#7B7D7D" }}>50% OFF</Text>
+			</View>
+			<View style={{ marginTop: "2%" }}>
+				<Text style={{ marginLeft: "1%", fontSize: 13 }}>{item.name}</Text>
+				<Text style={{ marginLeft: "1%", fontSize: 8, color: "#7B7D7D" }}>
+					{item.tamilname}
+				</Text>
+				<Text
+					style={{
+						marginLeft: "3%",
+						fontSize: 10,
+						marginTop: "2%",
+						fontWeight: "bold",
+					}}>
+					₹2000{"    "}
+					<Text
 						style={{
-							width: "80%",
-							height: "100%",
-							marginLeft: "10%",
-							justifyContent: "center",
-						}}
-					/>
-				</Col>
-				<Col style={{ width: "50%" }}>
-					<Text style={{ fontWeight: "bold", fontSize: 16, marginTop: "10%" }}>
-						{item.title}
+							textDecorationLine: "line-through",
+							color: "#7B7D7D",
+							fontWeight: "normal",
+						}}>
+						₹4000
 					</Text>
-					<Text style={{ fontSize: 15, color: "#CACFD2" }}>₹{item.cost}</Text>
-					<Text style={{ fontSize: 14, color: "#CACFD2" }}>
-						(This is just a transparent card )
-					</Text>
-				</Col>
-			</Grid>
+				</Text>
+			</View>
 		</Card>
 	);
 
@@ -105,15 +109,10 @@ export default class Wishlist extends Component {
 				<Content>
 					<View style={{ marginTop: "3%" }}>
 						<FlatList
+							vertical
+							numColumns={2}
 							showsHorizontalScrollIndicator={false}
-							keyExtractor={this.keyExtractor}
-							data={eventslist}
-							renderItem={this.renderCarousel}
-						/>
-						<FlatList
-							showsHorizontalScrollIndicator={false}
-							keyExtractor={this.keyExtractor}
-							data={events}
+							data={this.state.datas}
 							renderItem={this.renderCarousel}
 						/>
 					</View>
@@ -125,9 +124,11 @@ export default class Wishlist extends Component {
 
 const styles = {
 	cardContainerStyle: {
-		height: Dimensions.get("window").height / 7,
-		width: "100%",
-		marginTop: "2%",
+		marginTop: "1%",
+		marginLeft: "auto",
+		marginRight: "auto",
+		height: Dimensions.get("window").height / 4,
+		width: 190,
 	},
 	button: {
 		marginLeft: "75%",
@@ -136,5 +137,26 @@ const styles = {
 		borderRadius: 3,
 		height: 30,
 		width: "20%",
+	},
+	container: {
+		position: "absolute",
+		right: 8,
+		top: 35 - 50 / 2,
+		height: 20,
+		width: 20,
+		borderRadius: 20 / 2,
+		backgroundColor: "#ECF0F1",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	offer: {
+		position: "absolute",
+		left: 1,
+		top: 155 - 50 / 2,
+		height: 20,
+		width: 50,
+		backgroundColor: "#ECF0F1",
+		alignItems: "center",
+		justifyContent: "center",
 	},
 };

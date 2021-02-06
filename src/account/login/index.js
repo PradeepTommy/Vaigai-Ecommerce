@@ -6,7 +6,6 @@ import {
 	TouchableOpacity,
 	StatusBar,
 	Picker,
-	AsyncStorage,
 } from "react-native";
 import {
 	Container,
@@ -23,6 +22,7 @@ import {
 } from "native-base";
 import Icon from "../../../assets/logo.jpg";
 import Languages from "../../language";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Login extends Component {
 	state = {

@@ -39,21 +39,17 @@ function Stacks({ navigation }) {
 			<Stack.Screen
 				name="Login"
 				component={Login}
-				options={{ headerShown: false, gestureEnabled: false,
-					
-					drawerLockMode: 'locked-closed'
-		
-				}}
+				options={{ headerShown: false,}}
 			/>
 			<Stack.Screen
 				name="Signup"
 				component={Signup}
-				options={{ headerShown: false }}
+				options={{ headerShown: false, gestureEnabled: true,  }}
 			/>
 			<Stack.Screen
 				name="ForgotPassword"
 				component={ForgotPassword}
-				options={{ headerShown: false }}
+				options={{ headerShown: false, gestureEnabled: false }}
 			/>
 			<Stack.Screen
 				name="ViewAll"

@@ -5,8 +5,8 @@ import {
 	Image,
 	StatusBar,
 	FlatList,
-	AsyncStorage,
-	Dimensions, ActivityIndicator 
+	Dimensions,
+	ActivityIndicator,
 } from "react-native";
 import {
 	Container,
@@ -23,8 +23,8 @@ import {
 } from "native-base";
 import Swiper from "react-native-web-swiper";
 import { Col, Grid } from "react-native-easy-grid";
-import { Ionicons } from '@expo/vector-icons';
-
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Languages from "../../language";
 import Server from "../../function/server";
@@ -42,6 +42,25 @@ export default class Home extends Component {
 		this.getHomeItems();
 	}
 
+	submit = async () => {
+		try {
+			// await AsyncStorage.clear('whislist');
+			let test=[]
+			const data2 = await AsyncStorage.getItem('whislist');
+			console.warn('ss', data2)
+			if(data2 !== null){
+				test = JSON.parse(data2);
+				test.push(this.state)
+			}else{
+				test.push(this.state)
+			}	
+			 console.warn("gbhn",test)
+			 await AsyncStorage.setItem('whislist', JSON.stringify(test));
+		} catch (error) {
+			// Error saving data
+		}
+	}
+	
 	groupByKey = (array, key) => {
 		const tmpData = array.reduce((hash, obj) => {
 			if (obj[key] === undefined) return hash;
@@ -62,7 +81,7 @@ export default class Home extends Component {
 				"Content-Type": "multipart/form-data",
 			},
 		})
-			.then((response) => {   
+			.then((response) => {
 				return response.json();
 			})
 			.then((response) => {
@@ -100,7 +119,20 @@ export default class Home extends Component {
 					</Text>
 				</Left>
 				<Right>
-					<Icon style={{ marginLeft: "75%" }} name="heart-outline" />
+					<Icon
+						style={{ marginLeft: "75%" }}
+						name="heart-outline"
+						onPress={() => {
+							this.setState({
+								uri: `https://s3.ap-south-1.amazonaws.com/vaigaiclaas.com/${item.type.toLowerCase()}/${item.id}.jpg`,
+								name: item.name,
+								id: item.id, 
+								tamilname: item.tamil_name,
+								type: item.type,
+							});
+							this.submit();
+						}}
+					/>
 				</Right>
 			</View>
 		</Card>

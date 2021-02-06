@@ -22,12 +22,35 @@ import {
 } from "native-base";
 import { Col, Grid } from "react-native-easy-grid";
 import RBSheet from "react-native-raw-bottom-sheet";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class ViewAll extends Component {
 
 	state = {};
 
-	componentDidMount() {
+	submit = async () => {
+		try {
+			// await AsyncStorage.clear();
+			let test=[]
+			const data2 = await AsyncStorage.getItem('cart');
+			console.warn('ss', data2)
+			// csonst data3 = data2 ? data2.push([this.state]): [this.state];
+			if(data2 !== null){
+				test = JSON.parse(data2);
+				test.push(this.state)
+			}else{
+				test.push(this.state)
+			}	
+			 console.warn("gbhn",test)
+			 await AsyncStorage.setItem('cart', JSON.stringify(test));
+			//  console.warn("gbhn",data3)
+			//  setTimeout(async()=>{ const data4 = await AsyncStorage.getItem('cart');
+			//  console.warn('ee',data4)
+			// },500)
+			
+		} catch (error) {
+			// Error saving data
+		}
 	}
 
 	renderCarousel = ({ item }) => (
@@ -63,11 +86,14 @@ export default class ViewAll extends Component {
 						style={{ marginLeft: "70%" }}
 						name="add-circle"
 						onPress={() => {
-							this.RBSheet.open();
 							this.setState({
 								uri: `https://s3.ap-south-1.amazonaws.com/vaigaiclaas.com/${item.type.toLowerCase()}/${item.id}.jpg`,
 								name: item.name,
+								id: item.id, 
+								tamilname: item.tamil_name,
+								type: item.type,
 							});
+							this.RBSheet.open();
 						}}
 					/>
 				</Right>
@@ -140,7 +166,7 @@ export default class ViewAll extends Component {
 							</Card>
 							<Grid style={{ marginTop: "1%" }}>
 								<Col style={{ marginLeft: "5%", width: "42%" }}>
-									<Button block success iconLeft>
+									<Button block success iconLeft onPress={this.submit}>
 										<Icon name="cart" style={{ marginRight: "8%" }} />
 										<Text
 											style={{
